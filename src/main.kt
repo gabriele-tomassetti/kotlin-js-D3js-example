@@ -42,15 +42,12 @@ fun variability(state: Stats) : String
     }
 }
 
-fun styleTable(state: Stats) : String
+fun styleTable(state: Stats) = when
 {
-    return when
-    {
-        (state.high - state.low < 33) && (state.avg < 33) -> "low"
-        (state.high - state.low < 33) && (state.high - state.low < 66) && (state.avg > 33) && (state.avg < 66) -> "middle"
-        (state.high - state.low > 33) && (state.avg > 66) -> "high"
-        else -> ""
-    }
+    (state.high - state.low < 33) && (state.avg < 33) -> "low" // always cold
+    (state.high - state.low > 33) && (state.avg > 33) && (state.avg < 66) -> "middle"
+    (state.high - state.low < 33) && (state.avg > 66) -> "high" // always hot
+    else -> ""
 }
 
 fun drawTable(tableDiv: HTMLDivElement, data: dynamic)
